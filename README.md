@@ -14,6 +14,6 @@
     python -m virtualenv venv
     source venv/bin/activate
 
-    pip install -r requirements.prod.txt
+    pip install -r requirements.txt
     
     cp .env.template .env
