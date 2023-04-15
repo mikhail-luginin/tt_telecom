@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from .models import EquipmentType, Equipment
 from .serializers import EquipmentTypeSerializer, EquipmentSerializer
@@ -9,16 +10,14 @@ class EquipmentTypeViewSet(ModelViewSet):
     serializer_class = EquipmentTypeSerializer
     http_method_names = ['get']
     
-    def list(self, request):
-        queryset = self.get_queryset()
-        serializer = self.serializer_class(queryset, many=True)
+    def get_queryset(self):
+        queryset = self.queryset
+        name = self.request.query_params.get('name')
 
-        name = request.query_params.get('name', None)
         if name is not None:
             queryset = queryset.filter(name__icontains=name)
-            serializer = self.serializer_class(queryset, many=True)
-        
-        return Response(serializer.data)
+            
+        return queryset
     
 
 class EquipmentViewSet(ModelViewSet):
