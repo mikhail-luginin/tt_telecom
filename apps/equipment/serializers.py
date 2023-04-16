@@ -5,9 +5,14 @@ from rest_framework.response import Response
 from .models import EquipmentType, Equipment
 from .services.validators import validate_serial_number
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+
+class TokenSerializer(TokenObtainPairSerializer):
+    username_field = 'username'
+
 
 class EquipmentTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = EquipmentType
         fields = '__all__'

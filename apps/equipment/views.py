@@ -1,14 +1,21 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import EquipmentType, Equipment
-from .serializers import EquipmentTypeSerializer, EquipmentSerializer
+from .serializers import EquipmentTypeSerializer, EquipmentSerializer, TokenSerializer
+
+
+class TokenView(TokenObtainPairView):
+    serializer_class = TokenSerializer
 
 
 class EquipmentTypeViewSet(ModelViewSet):
     queryset = EquipmentType.objects.all()
     serializer_class = EquipmentTypeSerializer
     http_method_names = ['get']
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = self.queryset
@@ -24,6 +31,7 @@ class EquipmentViewSet(ModelViewSet):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
     http_method_names = ['get', 'post', 'put', 'delete']
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = self.queryset
