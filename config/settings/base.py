@@ -55,7 +55,10 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY + LOCAL_APPS
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 25
+    'PAGE_SIZE': 25,
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
 }
 
 MIDDLEWARE = [
