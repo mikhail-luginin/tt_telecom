@@ -1,7 +1,20 @@
 import re
 
 
-def validate_serial_number(mask, serial_number):
+def validate_serial_number(mask: str, serial_number: str) -> bool:
+    """
+        This method does validation for serial number.
+
+        :param mask: mask from equipment type model for validation serial number
+        :type mask: str
+
+        :param serial_number: serial number for validate
+        :type serial_number: str
+
+        :rtype: bool
+        :return: True if serial number passed validation else False
+    """
+
     if len(serial_number) > 10:
         return False
     pattern = ""

@@ -1,5 +1,4 @@
 from django.db import models
-import re
 
 
 class EquipmentType(models.Model):
@@ -14,5 +13,12 @@ class Equipment(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     def soft_delete(self):
+        """
+            This method inserts a value into the is_deleted field for further "soft" deletion
+
+            :rtype: NoneType
+            :return: None
+        """
+
         self.is_deleted = True
         self.save()
