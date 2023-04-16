@@ -62,3 +62,19 @@ class EquipmentSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('Field serial_number must be a list')
         else:
             return self.errors
+
+    def update(self, instance, validated_data):
+        instance.equipment_type = instance.equipment_type
+        instance.serial_number = instance.serial_number
+
+        if validated_data.get('equipment_type') != instance.equipment_type:
+            raise serializers.ValidationError('Equipment type can not be edited.')
+
+        if validated_data.get('serial_number') != instance.serial_number:
+            raise serializers.ValidationError('Serial number can not be edited.')
+
+        instance.note = validated_data.get('note', instance.note)
+        instance.is_deleted = validated_data.get('is_deleted', instance.is_deleted)
+
+        instance.save()
+        return instance
